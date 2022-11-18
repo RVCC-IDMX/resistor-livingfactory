@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.png" type="image/png">
+  <title>Resistor Calculator</title>
+
+  <style>
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #000000;
+      --brown: #654321;
+      --red: #cc0000;
+      --orange: #ef7708;
+      --yellow: yellow;
+      --green: green;
+      --blue: #1a1552;
+      --violet: #6967ce;
+      --grey: #666666;
+      --white: #fff;
+      --gold: #d4af37;
+      --silver: #bab7c3;
+
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.75rem;
+      background-color: #ddd;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .calculator {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      padding: 0 calc(10% - 30px);
+      max-width: 80rem;
+      margin: 0 auto;
+    }
+
+    .selection {
+      flex-grow: 1;
+    }
+
+    .lookup {
+      flex-grow: 1;
+      font-size: 1.125rem;
+      align-self: center;
+      margin: 0.5rem;
+      outline: 3px solid #222;
+      text-align: center;
+      width: 20rem;
+      padding: 0.25rem;
+      background-color: #222;
+      color: #fff;
+    }
+
+    .resistor {
+      height: 2rem;
+      width: 15rem;
+      display: grid;
+      grid-template-columns: 1fr 4fr 1fr;
+      justify-content: center;
+      margin: 0.5rem auto;
+      transform: scale(.8);
+    }
+
+    .wire {
+      width: 2.5rem;
+      height: 0.5rem;
+      background-color: beige;
+      display: inline-block;
+      align-self: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    .ceramic {
+      display: grid;
+      background-color: beige;
+      width: 10rem;
+      border-radius: 0.25rem;
+      padding: 0 2rem;
+      gap: 0.75rem;
+      grid-template-columns: repeat(8, 1fr);
+    }
+
+    .ceramic > * {
+      width: 0.75rem;
+    }
+
+    .ceramic .band:last-child {
+      grid-column: 6/7;
+    }
+
+    .container {
+      max-width: fit-content;
+    }
+
+    .bands {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      width: 1.6rem;
+      height: 5.75rem;
+      text-transform: capitalize;
+      padding-top: 0.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      cursor: pointer;
+      writing-mode: vertical-lr;
+      text-orientation: upright;
+    }
+
+    .black {
+      background-color: var(--black);
+      color: var(--white);
+    }
+
+    .brown {
+      background-color: var(--brown);
+      color: var(--white);
+    }
+
+    .red {
+      background-color: var(--red);
+      color: var(--white);
+    }
+
+    .orange {
+      background-color: var(--orange);
+      color: var(--white);
+    }
+
+    .yellow {
+      background-color: var(--yellow);
+      color: var(--black);
+    }
+
+    .green {
+      background-color: var(--green);
+      color: var(--white);
+    }
+
+    .blue {
+      background-color: var(--blue);
+      color: var(--white);
+    }
+
+    .violet {
+      background-color: var(--violet);
+      color: var(--white);
+    }
+
+    .grey {
+      background-color: var(--grey);
+      color: var(--white);
+    }
+
+    .white {
+      background-color: var(--white);
+      color: var(--black);
+      box-shadow: 4px 0 2px -5px #999, -3px 0 2px -4px #999;
+    }
+
+    .gold {
+      background-color: var(--gold);
+      color: var(--white);
+    }
+
+    .silver {
+      background-color: var(--silver);
+      color: var(--black);
+    }
+
+    .answer {
+      margin-top: 1rem;
+    }
+
+    @media screen and (min-width: 45rem) {
+      .calculator {
+        flex-direction: row;
+      }
+    }
+
+    @media screen and (min-width: 60rem) {
+      .calculator {
+        max-width: 90rem;
+        padding: 0 10%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Resistor Calculator Ω</h1>
+  <div class="calculator">
+    <div class="selection">
+      <section class="container">
+        <h2>Band 1</h2>
+        <div id="color0" class="bands">
+          <div class="box black">black</div>
+          <div class="box brown">brown</div>
+          <div class="box red">red</div>
+          <div class="box orange">orange</div>
+          <div class="box yellow">yellow</div>
+          <div class="box green">green</div>
+          <div class="box blue">blue</div>
+          <div class="box violet">violet</div>
+          <div class="box grey">grey</div>
+          <div class="box white">white</div>
+        </div>
+      </section>
+      <section class="container">
+        <h2>Band 2</h2>
+        <div id="color1" class="bands">
+          <div class="box black">black</div>
+          <div class="box brown">brown</div>
+          <div class="box red">red</div>
+          <div class="box orange">orange</div>
+          <div class="box yellow">yellow</div>
+          <div class="box green">green</div>
+          <div class="box blue">blue</div>
+          <div class="box violet">violet</div>
+          <div class="box grey">grey</div>
+          <div class="box white">white</div>
+        </div>
+      </section>
+      <section class="container">
+        <h2>Multiplier</h2>
+        <div id="color2" class="bands">
+          <div class="box black">black</div>
+          <div class="box brown">brown</div>
+          <div class="box red">red</div>
+          <div class="box orange">orange</div>
+          <div class="box yellow">yellow</div>
+          <div class="box green">green</div>
+          <div class="box blue">blue</div>
+          <div class="box violet">violet</div>
+          <div class="box grey">grey</div>
+          <div class="box white">white</div>
+          <div class="box gold">gold</div>
+          <div class="box silver">silver</div>
+        </div>
+      </section>
+      <section class="container">
+        <h2>Tolerance</h2>
+        <div id="color3" class="bands">
+          <div class="box brown">brown</div>
+          <div class="box red">red</div>
+          <div class="box green">green</div>
+          <div class="box blue">blue</div>
+          <div class="box violet">violet</div>
+          <div class="box grey">grey</div>
+          <div class="box gold">gold</div>
+          <div class="box silver">silver</div>
+        </div>
+      </section>
+    </div>
+    <div class="lookup">
+      <div class="resistor">
+        <div class="wire wire--1"></div>
+        <div class="ceramic">
+          <div id="b0" class="band red"></div>
+          <div id="b1" class="band green"></div>
+          <div id="b2" class="band violet"></div>
+          <div id="b3" class="band gold"></div>
+        </div>
+        <div class="wire wire--2"></div>
+      </div>
+      <div class="answer">Resistor value: 250M Ohms ±5%</div>
+    </div>
+  </div>
+  <script src="index.js" type="module"></script>
+</body>
+
+</html>
