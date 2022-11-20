@@ -161,7 +161,7 @@ function getThreeBandValue(bands) {
  */
 function formatNumber(val) {
   // https://bit.ly/3mrgPV0
-  const re = new RegExp('.0$');
+  const re = /.0$/;
   if (val >= 1000000000) {
     return `${(val / 1000000000).toFixed(1).replace(re, '')}G`;
   }
@@ -241,4 +241,5 @@ function getResistorOhms(bands) {
   return `Resistor value: ${format} Ohms ${tolerance}`;
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { getResistorOhms };
